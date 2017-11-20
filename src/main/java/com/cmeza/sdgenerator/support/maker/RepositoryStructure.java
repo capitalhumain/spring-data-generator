@@ -8,6 +8,11 @@ import com.cmeza.sdgenerator.util.*;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Id;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -25,6 +30,12 @@ public class RepositoryStructure {
         this.loader = loader;
         String repositoryName = entityName + postfix;
         Tuple<String, Boolean> entityId = getEntityId(entityClass);
+        
+        Boolean useSpecificAnnotation = loader.isUseSpecificAnnotation();
+        
+        Class<?> clazzAnnotationSpring = Component.class;
+        if(useSpecificAnnotation != null && useSpecificAnnotation) clazzAnnotationSpring = Repository.class;
+        
         if(entityId != null) {
             this.objectBuilder = new ObjectBuilder(
                     new ObjectStructure(repositoryPackage, ScopeValues.PUBLIC, ObjectTypeValues.INTERFACE, repositoryName)
@@ -33,7 +44,7 @@ public class RepositoryStructure {
                             .addImport("org.springframework.data.jpa.repository.JpaRepository")
                             .addImport("org.springframework.stereotype.Repository")
                             .addImport(entityId.right() ? entityId.left() : "")
-                            .addAnnotation("Repository")
+                            .addAnnotation(clazzAnnotationSpring)
                             .setExtend("JpaRepository", entityName, GeneratorUtils.getSimpleClassName(entityId.left())) 
                             
             );

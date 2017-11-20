@@ -33,6 +33,12 @@ public abstract class CommonsMojo extends AbstractMojo {
 
     @Parameter(name = Constants.MANAGER_POSTFIX, defaultValue = "Manager")
     protected String managerPostfix;
+    
+    @Parameter(name = Constants.MANAGER_FLAG, defaultValue = "true")
+    protected Boolean managerFlag;
+    
+    @Parameter(name = Constants.USE_SPECIFIC_ANNOTATION, defaultValue = "false")
+    protected Boolean useSpecificAnnotation;
 
     @Parameter(name = Constants.ONLY_ANNOTATIONS, defaultValue = "false")
     protected Boolean onlyAnnotations;

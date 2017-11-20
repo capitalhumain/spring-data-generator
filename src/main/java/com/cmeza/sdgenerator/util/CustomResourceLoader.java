@@ -23,6 +23,7 @@ public class CustomResourceLoader implements ResourceLoader {
     private String repositoryPostfix;
     private boolean flag;
     private boolean repositoryFinderBy;
+    private boolean useSpecificAnnotation;
 
     public CustomResourceLoader(MavenProject project){
 
@@ -105,7 +106,12 @@ public class CustomResourceLoader implements ResourceLoader {
 		this.repositoryFinderBy = repositoryFinderBy;
 	}
 
-	
-    
-    
+	public void setUseSpecificAnnotation(Boolean useSpecificAnnotation) {
+		this.useSpecificAnnotation = useSpecificAnnotation;		
+	}
+
+	public boolean isUseSpecificAnnotation() {
+		return useSpecificAnnotation;
+	}
+ 
 }

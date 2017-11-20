@@ -31,6 +31,8 @@ public class SDManagerMojo extends CommonsMojo{
             resourceLoader.setRepositoryPackage(repositoryPackage);
             resourceLoader.setRepositoryPostfix(repositoryPostfix);
             resourceLoader.setOverwrite(overwrite);
+            resourceLoader.setFlag(managerFlag);
+            resourceLoader.setUseSpecificAnnotation(useSpecificAnnotation);
 
             String absolutePath = GeneratorUtils.getAbsolutePath(managerPackage);
             if (absolutePath == null){

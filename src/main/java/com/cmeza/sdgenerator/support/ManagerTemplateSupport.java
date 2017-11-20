@@ -15,10 +15,13 @@ import java.util.Arrays;
  * Created by carlos on 08/04/17.
  */
 public class ManagerTemplateSupport extends AbstractTemplateProvider {
+	
+	
+	private CustomResourceLoader loader;
 
     private String repositoryPackage;
     private String repositoryPostfix;
-
+    
     public ManagerTemplateSupport(AnnotationAttributes attributes, String repositoryPackage, String repositoryPostfix) {
         super(attributes);
         this.repositoryPackage = repositoryPackage;
@@ -30,6 +33,7 @@ public class ManagerTemplateSupport extends AbstractTemplateProvider {
         super(customResourceLoader);
         this.repositoryPackage = customResourceLoader.getRepositoryPackage();
         this.repositoryPostfix = customResourceLoader.getRepositoryPostfix();
+        this.loader = customResourceLoader;
         this.findFilterRepositories();
     }
 
@@ -42,7 +46,7 @@ public class ManagerTemplateSupport extends AbstractTemplateProvider {
 
     @Override
     protected Tuple<String, Integer> getContentFromTemplate(String mPackage, String simpleClassName, String postfix, BeanDefinition beanDefinition) {
-        return new ManagerStructure(mPackage, simpleClassName, postfix, repositoryPackage, repositoryPostfix).build();
+        return new ManagerStructure(mPackage, simpleClassName, postfix, repositoryPackage, repositoryPostfix,loader).build();
     }
 
     @Override

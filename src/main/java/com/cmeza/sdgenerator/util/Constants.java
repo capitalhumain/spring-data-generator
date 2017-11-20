@@ -14,6 +14,10 @@ public class Constants {
     
     public static final String MAGANER_PACKAGE = "manager-package";
     public static final String MANAGER_POSTFIX = "manager-postfix";
+    public static final String MANAGER_FLAG = "manager-flag";
+	
+    //@Service for the service instead of @Component and @Repository for the Repository instead of @Component
+    public static final String USE_SPECIFIC_ANNOTATION = "use-specific-annotation";
     public static final String ONLY_ANNOTATIONS = "only-annotations";
     public static final String OVERWRITE = "overwrite";
     
@@ -26,5 +30,7 @@ public class Constants {
 
     public static final String TABLE_FILE_COLUMN = "File Name";
     public static final String TABLE_RESULT_COLUMN = "Result";
+
+
     private Constants(){}
 }

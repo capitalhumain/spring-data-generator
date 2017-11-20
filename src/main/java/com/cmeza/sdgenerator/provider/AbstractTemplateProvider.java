@@ -27,7 +27,6 @@ public abstract class AbstractTemplateProvider {
     private String includeFilterPostfix = "";
     private boolean overwrite;
     private boolean flag = true;
-    private boolean repositoryFinderBy = false;
 
     public AbstractTemplateProvider(AnnotationAttributes attributes) {
         Assert.notNull(attributes, "AnnotationAttributes must not be null!");
@@ -35,6 +34,7 @@ public abstract class AbstractTemplateProvider {
         this.postfix = attributes.getString(getPostfix());
         this.debug = attributes.getBoolean("debug");
         this.overwrite = attributes.getBoolean("overwrite");
+        this.flag = attributes.getBoolean("use-specific-annotation");
         if (excludeClasses.length > 0 && debug) {
             SDLogger.debug(String.format("Exclude %s %s in the %s generator", excludeClasses.length, excludeClasses.length == 1 ? "entity":"entities", postfix));
         }
@@ -47,7 +47,6 @@ public abstract class AbstractTemplateProvider {
         this.excludeClasses = new Class[]{};
         this.overwrite = customResourceLoader.isOverwrite();
         this.flag = customResourceLoader.isFlag();
-        this.repositoryFinderBy = customResourceLoader.isRepositoryFinderBy();
     }
 
     public void initializeCreation(String path, String ePackage, Collection<BeanDefinition> candidates) {
