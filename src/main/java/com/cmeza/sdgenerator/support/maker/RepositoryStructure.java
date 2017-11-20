@@ -28,12 +28,14 @@ public class RepositoryStructure {
         if(entityId != null) {
             this.objectBuilder = new ObjectBuilder(
                     new ObjectStructure(repositoryPackage, ScopeValues.PUBLIC, ObjectTypeValues.INTERFACE, repositoryName)
+                            .setRepositoryFinderBy(loader.isRepositoryFinderBy(),entityClass)
                             .addImport(entityClass)
                             .addImport("org.springframework.data.jpa.repository.JpaRepository")
                             .addImport("org.springframework.stereotype.Repository")
                             .addImport(entityId.right() ? entityId.left() : "")
                             .addAnnotation("Repository")
-                            .setExtend("JpaRepository", entityName, GeneratorUtils.getSimpleClassName(entityId.left()))
+                            .setExtend("JpaRepository", entityName, GeneratorUtils.getSimpleClassName(entityId.left())) 
+                            
             );
         }
     }

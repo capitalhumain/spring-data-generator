@@ -28,6 +28,8 @@ public class SDRepositoryMojo extends CommonsMojo{
             resourceLoader = new CustomResourceLoader(project);
             resourceLoader.setPostfix(repositoryPostfix);
             resourceLoader.setOverwrite(overwrite);
+            resourceLoader.setFlag(repositoryFlag);
+            resourceLoader.setRepositoryFinderBy(repositoryFinderBy);
 
             String absolutePath = GeneratorUtils.getAbsolutePath(repositoryPackage);
             if (absolutePath == null){

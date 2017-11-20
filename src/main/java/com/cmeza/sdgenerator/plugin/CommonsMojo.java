@@ -21,6 +21,12 @@ public abstract class CommonsMojo extends AbstractMojo {
 
     @Parameter(name = Constants.REPOSITORY_POSTFIX, defaultValue = "Repository")
     protected String repositoryPostfix;
+    
+    @Parameter(name = Constants.REPOSITORY_FLAG, defaultValue = "true")
+    protected Boolean repositoryFlag;
+    
+    @Parameter(name = Constants.REPOSITORY_FINDERBY, defaultValue = "false")
+    protected Boolean repositoryFinderBy;
 
     @Parameter(name = Constants.MAGANER_PACKAGE)
     protected String managerPackage;

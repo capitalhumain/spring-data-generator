@@ -20,6 +20,8 @@ public @interface SDGenerator {
 
     String repositoryPackage() default "";
     String repositoryPostfix() default "Repository";
+    boolean repositoryFlag() default true;
+    boolean repositoryFinderBy() default false;
     Class<?>[] excludeRepositoriesClasses() default {};
 
     String managerPackage() default "";

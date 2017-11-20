@@ -26,6 +26,8 @@ public abstract class AbstractTemplateProvider {
     private Collection<File> includeFilter;
     private String includeFilterPostfix = "";
     private boolean overwrite;
+    private boolean flag = true;
+    private boolean repositoryFinderBy = false;
 
     public AbstractTemplateProvider(AnnotationAttributes attributes) {
         Assert.notNull(attributes, "AnnotationAttributes must not be null!");
@@ -44,9 +46,15 @@ public abstract class AbstractTemplateProvider {
         this.debug = true;
         this.excludeClasses = new Class[]{};
         this.overwrite = customResourceLoader.isOverwrite();
+        this.flag = customResourceLoader.isFlag();
+        this.repositoryFinderBy = customResourceLoader.isRepositoryFinderBy();
     }
 
     public void initializeCreation(String path, String ePackage, Collection<BeanDefinition> candidates) {
+    	
+    	//If flag is set to false not generate anything
+    	if(!flag)return;
+    	
         int generatedCount = 0;
         
         if(!GeneratorUtils.verifyPackage(path)){
@@ -57,7 +65,7 @@ public abstract class AbstractTemplateProvider {
             if (verifyEntityNonExclude(beanDefinition.getBeanClassName())){
                 continue;
             }
-
+            
             if (createHelper(path, beanDefinition, postfix, ePackage)) {
                 generatedCount++;
             }

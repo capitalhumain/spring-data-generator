@@ -50,7 +50,7 @@ public class ScanningConfigurationSupport {
             String className = this.annotationMetadata.getClassName();
             return Collections.singleton(ClassUtils.getPackageName(className));
         } else {
-            HashSet packages = new HashSet();
+            HashSet<String> packages = new HashSet<>();
             packages.addAll(Arrays.asList(entityPackage));
 
             return packages;
@@ -75,13 +75,13 @@ public class ScanningConfigurationSupport {
             scanner.setIncludeAnnotation(Entity.class);
         }
 
-        Iterator filterPackages = this.getBasePackages().iterator();
+        Iterator<String> filterPackages = this.getBasePackages().iterator();
 
-        HashSet candidates = new HashSet();
+        HashSet<BeanDefinition> candidates = new HashSet<>();
 
         while(filterPackages.hasNext()) {
             String basePackage = (String)filterPackages.next();
-            Set candidate = scanner.findCandidateComponents(basePackage);
+            Set<BeanDefinition> candidate = scanner.findCandidateComponents(basePackage);
             candidates.addAll(candidate);
         }
 

@@ -21,6 +21,8 @@ public class CustomResourceLoader implements ResourceLoader {
     private boolean overwrite;
     private String repositoryPackage;
     private String repositoryPostfix;
+    private boolean flag;
+    private boolean repositoryFinderBy;
 
     public CustomResourceLoader(MavenProject project){
 
@@ -86,4 +88,24 @@ public class CustomResourceLoader implements ResourceLoader {
         this.repositoryPostfix = repositoryPostfix;
         return this;
     }
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
+	public boolean isRepositoryFinderBy() {
+		return repositoryFinderBy;
+	}
+
+	public void setRepositoryFinderBy(boolean repositoryFinderBy) {
+		this.repositoryFinderBy = repositoryFinderBy;
+	}
+
+	
+    
+    
 }

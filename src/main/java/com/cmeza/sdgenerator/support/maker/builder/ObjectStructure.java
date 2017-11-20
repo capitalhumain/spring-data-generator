@@ -124,6 +124,26 @@ public class ObjectStructure {
         this.objectFunctions.add(objectFunction);
         return this;
     }
+    
+    public ObjectStructure setRepositoryFinderBy(boolean isRepositoryFinderBy,String clazz){
+    	try {
+			return setRepositoryFinderBy(isRepositoryFinderBy,Class.forName(clazz));
+		} catch (ClassNotFoundException e) {		
+			e.printStackTrace();
+			return null;
+		}		
+    }
+
+    public ObjectStructure setRepositoryFinderBy(boolean isRepositoryFinderBy,Class<?> clazz){
+    	if (isRepositoryFinderBy) {   	
+    		addImport("import javax.persistence.EntityManager;");
+    		addImport("import javax.persistence.Query;");
+    		addImport("import java.util.List;");
+    		addImport("import java.util.Map;");
+    		this.objectRawBody += BuildUtils.buildRepositoryFinderBy(clazz);
+        }
+    	return this;
+    }
 
     public ObjectTypeValues getObjectType() {
         return objectType;
@@ -435,7 +455,7 @@ public class ObjectStructure {
             }
             return this;
         }
-
+         
         @Override
         public String toString() {
             return BuildUtils.buildMethod(methodAnnotations, methodScope, methodName, methodArguments, methodBody);

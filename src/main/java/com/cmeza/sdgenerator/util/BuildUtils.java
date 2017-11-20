@@ -6,7 +6,13 @@ import com.cmeza.sdgenerator.support.maker.values.ObjectValues;
 import com.cmeza.sdgenerator.support.maker.values.ScopeValues;
 import javafx.util.Pair;
 
+import java.lang.reflect.Field;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Created by carlos on 08/04/17.
@@ -112,5 +118,26 @@ public class BuildUtils {
 
         return constructor.toString();
     }
+
+	public static String buildRepositoryFinderBy(Class<?> clazz) {
+		Map<String,String> mapColumnsField = ClassUtil.getEntityColumnsFieldByField(clazz);
+		Map<String,String> mapColumnsGetter = ClassUtil.getEntityColumnsFieldByGetter(clazz);
+		Map<String,String> merge = new LinkedHashMap<String, String>();
+		merge.putAll(mapColumnsField);
+		merge.putAll(mapColumnsGetter);
+		
+		List<Field> fieldsColumns = ClassUtil.getFieldColumns(merge,clazz);
+		
+		StringBuilder constructor = new StringBuilder();
+		
+		for(Field column : fieldsColumns){
+			String columnName = StringUtils.capitalise(column.getName());
+			constructor
+			.append(CommonValues.NEWLINE)
+			.append(CommonValues.TAB+"public " + clazz.getSimpleName() + " findBy" + columnName + "(" + column.getType().getName() + " " + column.getName() + ");")
+			.append(CommonValues.NEWLINE);
+		}
+		return constructor.toString();
+	}
 
 }
